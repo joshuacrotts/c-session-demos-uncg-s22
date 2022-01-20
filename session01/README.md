@@ -1,4 +1,4 @@
-# Session01 - Stack and Student Struct
+# Session01 (01/19/2022) - Stack and Student Struct
 
 This project contains the code to create a simple stack data structure backed by a linked list. To complicate things, instead of making the elements a primitive (e.g., `int`, `float`, etc.), we use a self-made `struct student` with two fields. 
 
