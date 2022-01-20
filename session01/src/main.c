@@ -18,6 +18,24 @@ int main(int argc, char *argv[]) {
     stack_push(&stk, s4); // Robert
     stack_push(&stk, s2); // Bob
 
+    printf("\nNum elements: %i. Stack now:\n", stack_num_elements(&stk));
+    stack_print(&stk, stdout);
+
+    printf("\nPopping:\n");
+    stack_pop(&stk);
+    stack_print(&stk, stdout);
+
+    printf("\nPopping:\n");
+    stack_pop(&stk);
+    stack_print(&stk, stdout);
+
+    struct student *top = stack_peek(&stk);
+    printf("\nNum elements: %i. Top of stack -- name: %s; gpa: %.2f\n", stack_num_elements(&stk), top->name, top->gpa);
+
+    printf("Pushing Alan...\n");
+    stack_push(&stk, s3); // Alan
+    stack_print(&stk, stdout);
+
     stack_free(&stk);
     return 0;
 }

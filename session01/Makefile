@@ -8,7 +8,7 @@
 
 CC = gcc
 
-CFLAGS = -O1 -Wall -Werror -Wno-unused-function -Wno-unused-variable -std=c11 
+CFLAGS = -O1 -Wall -Werror -std=c11
 
 # The names of all the programs to build
 
@@ -23,7 +23,7 @@ PROGRAMS = stack
 # definitions out.
 
 stack_OBJS = main.o stack.o student.o
-stack_LDLIBS = -lm
+stack_LDLIBS = -lm -lpthread
 
 ############################################################################
 # Makefile magic below here. CSC 362 students don't need to change anything

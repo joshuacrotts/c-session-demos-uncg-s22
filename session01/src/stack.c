@@ -15,7 +15,8 @@ struct stack_node {
  * Initializes a stack to have no elements (and no top ptr).
  */
 void stack_init(stack *stk) {
-    // TODO write the code to initialize the stack.
+    stk->top = NULL;
+    stk->num_elements = 0;
 }
 
 /**
@@ -23,34 +24,58 @@ void stack_init(stack *stk) {
  * assign its fields, then add it to the stack.
  */
 void stack_push(stack *stk, struct student *stu) {
-    // TODO write the code to push an element to the stack.
+    struct stack_node *sn = malloc(sizeof(struct stack_node));
+    if (sn == NULL) {
+        perror("Out of memory!");
+        exit(1);
+    }
+
+    // First check to see if the stack is empty. If so,
+    // don't change any ptrs except the top.
+    if (!stack_is_empty(stk)) {        
+        sn->next = stk->top;
+    }
+
+    sn->s = stu;
+    stk->top = sn;
+    stk->num_elements++;
 }
 
 /**
  * Removes (but does not return) the top of the stack.
  */
 void stack_pop(stack *stk) {
-    // TODO write the code to remove the top element from the stack.
+    struct stack_node *curr = stk->top;
+    stk->top = stk->top->next;
+    free(curr->s);
+    free(curr);
+    stk->num_elements--;
+}
 
 /**
  * Returns (but does not remove) the top element of the stack.
  */
 struct student *stack_peek(stack *stk) {
-    // TODO write the code to return the top element on the stack.
+    if (stack_is_empty(stk)) {
+        perror("Stack is empty!");
+        exit(1);
+    }
+    
+    return stk->top->s;
 }
 
 /**
  * Returns whether or not the stack is empty.
  */
 bool stack_is_empty(stack *stk) {
-    // TODO write the code to determine if the stack is empty.
+    return stack_num_elements(stk) == 0;
 }
 
 /**
  * Returns the number of elements in the stack.
  */
 int stack_num_elements(stack *stk) {
-    // TODO write the code to return the number of elements.
+    return stk->num_elements;
 }
 
 /**
@@ -77,5 +102,10 @@ void stack_free(stack *stk) {
     struct stack_node *curr = stk->top;
     struct stack_node *next = curr;
 
-    // TODO write the loop to free the nodes AND the student structs.
+    while (curr != NULL) {
+        next = curr->next;
+        free(curr->s);
+        free(curr);
+        curr = next;
+    }
 }
