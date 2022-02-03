@@ -1,7 +1,19 @@
-# Session01 (01/19/2022) - Stack Data Structure and Student Struct
+# Session03 (02/02/2022) - Boolean Expression Parser
 
-This project contains the code to create a simple stack data structure backed by a linked list. To complicate things, instead of making the elements a primitive (e.g., `int`, `float`, etc.), we use a self-made `struct student` with two fields. 
+In this session, we create a postfix boolean expression parser. The user enters expressions in postfix
+notation, and the program evaluates and displays their result.
+
+## Example Usage
+```
+t f > ~
+>>> true
+
+f f # f > t ^ ~
+>>> false
+
+t f t > > f f # + ~
+>>> false
 
 ## Recompiling
 
-To compile the project, clone the repository to your computer. Then, navigate to this folder and type `make`. This will produce an executable `stack` inside the bin directory. Run with `bin/stack` (this assumes a Linux setup).
+To compile the project, clone the repository to your computer. Then, navigate to this folder and type `make`. This will produce an executable `bep` inside the bin directory. Run with `bin/bep` (this assumes a Linux setup).
