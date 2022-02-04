@@ -10,13 +10,14 @@ enum OP_TYPE {
 };
 
 struct symbol {
-    // TODO create the symbol struct. It should have a union of "data": 
-    //      either a bool value or a struct called operator. The struct
-    //      will contain either a char representing the operator itself
-    //      and an enum representing the type.
-    //
-    //      There should also be a bool keeping track of whether or not 
-    //      this symbol is a literal.
+    union data {
+        bool value;
+        struct operator {
+            char ch;
+            enum OP_TYPE op_type;
+        } operator;
+    } data;
+    bool is_literal;
 };
 
 struct symbol *symbol_init(const char s);

@@ -32,7 +32,10 @@ char evaluate_unaryop(void) {
     symbol_free(op);
     
     switch (operator) {
-        // TODO Evaluate the negation operator.
+        case '~': return symbol_convert(!op1);
+        default:
+            fprintf(stderr, "Invalid unary operator %c\n", operator);
+            exit(EXIT_FAILURE);
     }
 }
 
@@ -63,7 +66,14 @@ char evaluate_binop(void) {
     symbol_free(op);
     
     switch (operator) {
-        // TODO evaluate the binary operator.
+        case '>': return symbol_convert(!op1 || op2);
+        case '+': return symbol_convert(op1 || op2);
+        case '&': return symbol_convert(op1 && op2);
+        case '^': return symbol_convert(op1 != op2);
+        case '#': return symbol_convert((op1 && op2) || (!op1 && !op2));
+        default:
+            fprintf(stderr, "Invalid binary operator %c\n", operator);
+            exit(EXIT_FAILURE);
     }
 }
 
@@ -71,7 +81,26 @@ char evaluate_binop(void) {
  * Parses a line of data. This should be a boolean expression in post-fix notation.
  */
 void parse(char *line_data) {
-    // TODO use strtok to parse the data, and evaluate operands.
+    char *tok = strtok(line_data, " ");
+    while (tok != NULL) {
+        // Push the current symbol to the stack.
+        stack_push(&stk, symbol_init(tok[0]));
+
+        // Attempt to evaluate whatever is at the top.
+        struct symbol *top = stack_peek(&stk);
+        if (!top->is_literal) {
+            switch (top->data.operator.op_type) {
+                case BINARY:
+                    stack_push(&stk, symbol_init(evaluate_binop()));
+                    break;
+                case UNARY:
+                    stack_push(&stk, symbol_init(evaluate_unaryop()));
+                    break;
+            }
+        }
+
+        tok = strtok(NULL, " ");
+    }
 
     if (!stack_is_empty(&stk)) {
         struct symbol *s = stack_remove(&stk);
