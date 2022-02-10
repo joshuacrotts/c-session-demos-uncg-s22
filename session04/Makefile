@@ -8,7 +8,7 @@
 
 CC = gcc
 
-CFLAGS = -O1 -Wall -Werror -Wno-unused-function -Wno-unused-variable 
+CFLAGS = -g -O1 -Wall -Werror -Wno-unused-function -Wno-unused-variable 
 
 # The names of all the programs to build
 
@@ -22,7 +22,7 @@ PROGRAMS = picoscheme
 # math library. It's OK to leave either or both of the LDFLAGS and LDLIBS
 # definitions out.
 
-picoscheme_OBJS = main.o parser.o mpc.o
+picoscheme_OBJS = main.o parser.o apply.o lval.o utils.o eval.o mpc.o
 picoscheme_LDLIBS = -lm
 
 ############################################################################

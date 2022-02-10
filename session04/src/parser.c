@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 #include "parser.h"
-
+#include "eval.h"
 #include "mpc.h"
 
 /* Function prototypes. */
@@ -16,7 +16,6 @@ static mpc_parser_t *number_rule;
 static mpc_parser_t *expr_rule;
 static mpc_parser_t *symbol_rule;
 static mpc_parser_t *application_rule;
-static mpc_parser_t *assn_rule;
 static mpc_parser_t *program_rule;
 static mpc_parser_t *picoscheme_rule;
 
@@ -40,7 +39,7 @@ void ps_parser_init(const char *file) {
  * @return void.
  */
 void ps_parser_cleanup(void) {
-    mpc_cleanup(8, lval_rule, number_rule, symbol_rule, expr_rule, application_rule, program_rule, picoscheme_rule);
+    mpc_cleanup(7, lval_rule, number_rule, symbol_rule, expr_rule, application_rule, program_rule, picoscheme_rule);
 }
 
 /**
@@ -60,7 +59,7 @@ static void ps_parser_readfile(const char *file) {
 
     mpc_result_t res;
     if (mpc_parse_file(file, fp, picoscheme_rule, &res)) {
-        // TODO write the semantic analyzer.
+        eval_ast(res.output);
         mpc_ast_delete(res.output);
     } else {
         mpc_err_print(res.error);
