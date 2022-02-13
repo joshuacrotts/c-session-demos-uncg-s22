@@ -13,7 +13,7 @@ void eval_ast(const mpc_ast_t *ast) {
         lval *val = eval(ast->children[i]);
         if (val != NULL) {
             lval_print(val);
-            // We probably shouldn't delete the AST until later...
+            // We probably shouldn't delete the lval until later...
             lval_delete(val);
         }
     }
@@ -60,15 +60,26 @@ static lval *eval_symbol(mpc_ast_t *ast) {
  * where ... is.
  */
 static lval *eval_application(mpc_ast_t *ast) {
-    // TODO write eval_application.
-    
     // Evaluate the arguments first.
+    size_t num_args = ast->children_num - 3;
+    lval **evaluated_args = s_malloc(sizeof(lval *) * num_args);
+    for (int i = 0; i < num_args; i++) {
+        mpc_ast_t *curr = ast->children[i + 2];
+        evaluated_args[i] = eval(curr);
+    }
 
     // Evaluate the operator.
+    lval *op = eval(ast->children[1]);
 
     // Apply the operator to its arguments.
+    lval *ret_val = apply(op, evaluated_args, num_args);
 
     // Free the evaluated arguments.
+    for (int i = 0; i < num_args; i++) {
+        lval_delete(evaluated_args[i]);
+    }
 
-    // Return lvalue from application.
+    free(evaluated_args);
+    lval_delete(op);
+    return ret_val;
 }
