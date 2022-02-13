@@ -1,0 +1,5 @@
+(define (reverse-sub x y z) (- z y x))
+(define a 120)
+(define b 230)
+(define c -500)
+(reverse-sub a b (reverse-sub -90 -80 c))
