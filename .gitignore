@@ -53,4 +53,6 @@ dkms.conf
 *.DS_Store
 session03/key
 session04/key
+session05/key
+session06/key
 .vscode/

@@ -1,4 +1,4 @@
-# Session05 - pScheme Programming Language Part 2 (Environments and Procedures)
+# Session06 - pScheme Programming Language Part 3 (Conditionals, Lists, Lambda Expressions)
 
 ... To write later.
 

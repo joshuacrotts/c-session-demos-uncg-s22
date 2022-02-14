@@ -1,0 +1,5 @@
+(define x 10)
+(define y 20)
+(+ x y)
+(define (add x y) (+ x y))
+(add 300 400)
