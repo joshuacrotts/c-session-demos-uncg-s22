@@ -134,7 +134,7 @@ static lval *eval_application(mpc_ast_t *ast, environment *env) {
         }
 
         // Create a new environment by binding the arguments to the parameters.
-        environment *new_env = environment_perpend(proc_def->data.proc_val.proc_env, proc_def->data.proc_val.proc_parameters, 
+        environment *new_env = environment_append(proc_def->data.proc_val.proc_env, proc_def->data.proc_val.proc_parameters, 
                                                    evaluated_args, proc_def->data.proc_val.proc_num_parameters);
         ret_val = eval(proc_def->data.proc_val.proc_body, new_env);
     }
