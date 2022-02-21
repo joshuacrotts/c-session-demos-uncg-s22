@@ -72,7 +72,13 @@ fractal *fractal_init(size_t width, size_t height, size_t max_iterations, size_t
 }
 
 /**
+ * Generates the fractal using multiple threads. Each thread receives
+ * a segment of the fractal to render, and this is the callback function
+ * pointer for that fractal_task. 
+ *
+ * @param void* args - fractal_task * struct.
  * 
+ * @return void. 
  */
 void *fractal_generate_multithreaded(void *args) {
     fractal_task *task = (fractal_task *) args;

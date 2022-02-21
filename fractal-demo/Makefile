@@ -11,7 +11,7 @@
 
 CC = gcc
 
-CFLAGS = -O3 -Wall -Werror -fopenmp -lX11 -std=c11
+CFLAGS = -O3 -Wall -Werror -fopenmp -lX11
 
 # The names of all the programs to build
 
